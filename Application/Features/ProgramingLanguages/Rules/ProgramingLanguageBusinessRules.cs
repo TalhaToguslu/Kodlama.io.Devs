@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,26 @@ namespace Application.Features.ProgramingLanguages.Rules
         {
             _programingLanguageRepository = programingLanguageRepository;
         }
-        
+
+        public async Task CheckExistsProgramingLanguageBySameName(ProgramingLanguage programingLanguage)
+        {
+            var result = _programingLanguageRepository.Get(p => p.Name == programingLanguage.Name);
+
+            if(result != null)
+            {
+                throw new Exception("Programlama dili zaten bulunuyor.");
+            }
+        }
+
+        public async Task FindExistsProgramingLanguageById(ProgramingLanguage programingLanguage)
+        {
+            var result = _programingLanguageRepository.Get(p => p.Id == programingLanguage.Id);
+
+            if (result == null)
+            {
+                throw new Exception("Programlama dili bulunamadı.");
+            }
+        }
+
     }
 }

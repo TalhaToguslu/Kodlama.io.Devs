@@ -10,19 +10,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.ProgramingLanguages.Commands.CreateProgramingLanguage
+namespace Application.Features.ProgramingLanguages.Commands.UpdateProgramingLanguage
 {
-    public class CreateProgramingLanguageCommand: IRequest<ProgramingLanguageDto>
+    public class UpdateProgramingLanguageCommand: IRequest<ProgramingLanguageDto>
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
-        public class PrograminLanguageCreateCommandHandler : IRequestHandler<CreateProgramingLanguageCommand, ProgramingLanguageDto>
+        public class UpdateProgramingLanguageCommandHandler: IRequestHandler<UpdateProgramingLanguageCommand, ProgramingLanguageDto>
         {
             private readonly IProgramingLanguageRepository _programingLanguageRepository;
             private readonly IMapper _mapper;
             private readonly ProgramingLanguageBusinessRules _programingLanguageBusinessRules;
 
-            public PrograminLanguageCreateCommandHandler(IProgramingLanguageRepository programingLanguageRepository,
+            public UpdateProgramingLanguageCommandHandler(IProgramingLanguageRepository programingLanguageRepository,
                 IMapper mapper,
                 ProgramingLanguageBusinessRules programingLanguageBusinessRules)
             {
@@ -31,15 +32,16 @@ namespace Application.Features.ProgramingLanguages.Commands.CreateProgramingLang
                 _programingLanguageBusinessRules = programingLanguageBusinessRules;
             }
 
-            public async Task<ProgramingLanguageDto> Handle(CreateProgramingLanguageCommand request, CancellationToken cancellationToken)
+            public async Task<ProgramingLanguageDto> Handle(UpdateProgramingLanguageCommand request, CancellationToken cancellationToken)
             {
                 ProgramingLanguage mappedProgramingLanguage = _mapper.Map<ProgramingLanguage>(request);
 
+                await _programingLanguageBusinessRules.FindExistsProgramingLanguageById(mappedProgramingLanguage);
                 await _programingLanguageBusinessRules.CheckExistsProgramingLanguageBySameName(mappedProgramingLanguage);
 
-                ProgramingLanguage createdProgramingLanguage = await _programingLanguageRepository.AddAsync(mappedProgramingLanguage);
-                ProgramingLanguageDto programingLanguageDto = _mapper.Map<ProgramingLanguageDto>(createdProgramingLanguage);
-                return programingLanguageDto;
+                ProgramingLanguage updatedProgramingLanguage = await _programingLanguageRepository.UpdateAsync(mappedProgramingLanguage);
+                ProgramingLanguageDto mappedProgramingLanguageDto = _mapper.Map<ProgramingLanguageDto>(updatedProgramingLanguage);
+                return mappedProgramingLanguageDto;
             }
         }
     }

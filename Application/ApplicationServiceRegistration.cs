@@ -1,4 +1,6 @@
 ﻿using Application.Features.ProgramingLanguages.Rules;
+using Core.Application.Pipelines.Validation;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -23,7 +25,7 @@ namespace Application
             services.AddScoped<ProgramingLanguageBusinessRules>();
 
             // Validation entegrasyonu
-            //services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
@@ -34,7 +36,7 @@ namespace Application
             // MediatR isteği yakaladığında önce RequestValidationBehavior işlemleri yap diyoruz.
             // MediatR'ın çalıştığı kısımlara bir AOP ekliyoruza aslında. Bir attribute ASPECT. Validation ASPECT. 
             // RequestValidationBehavior
-            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 
             return services;
 
