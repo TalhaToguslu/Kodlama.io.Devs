@@ -35,11 +35,32 @@ namespace Persistence.Contexts
                 a.ToTable("ProgramingLanguages").HasKey(k => k.Id);
                 a.Property(p => p.Id).HasColumnName("Id");
                 a.Property(p => p.Name).HasColumnName("Name");
+                a.HasMany(p => p.ProgramingLanguageTechnologies);
+            });
+
+            modelBuilder.Entity<ProgramingLanguageTechnology>(a =>
+            {
+                a.ToTable("ProgramingLanguageTechnologies").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.programingLanguageId).HasColumnName("ProgramingLanguageId");
+                a.Property(p => p.Name).HasColumnName("Name");
+                a.HasOne(p => p.ProgramingLanguage);
             });
 
             // Tablo oluşturulduğunda 1-2 tane örnek veri eklesin. Seed = Tohum demek.
-            ProgramingLanguage[] brandEntitySeeds = { new(1, "Php"), new(2, "Java") };
-            modelBuilder.Entity<ProgramingLanguage>().HasData(brandEntitySeeds);
+            ProgramingLanguage[] programingLanguageEntitySeeds = 
+            { 
+                new(1, "Php"),
+                new(2, "Java") 
+            };
+            modelBuilder.Entity<ProgramingLanguage>().HasData(programingLanguageEntitySeeds);
+
+            ProgramingLanguageTechnology[] programingLanguageTechnologyEntitySeeds =
+            {
+                new(1, ".Net Core", 3),
+                new(2, ".Net MVC", 3)
+            };
+            modelBuilder.Entity<ProgramingLanguageTechnology>().HasData(programingLanguageTechnologyEntitySeeds);
 
         }
     }

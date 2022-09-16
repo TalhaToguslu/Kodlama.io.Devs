@@ -13,12 +13,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Features\ProgramingLanguages\Queries\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\Domain\Domain.csproj" />
 	  <ProjectReference Include="..\src\corePackages\Core.Application\Core.Application.csproj" />
 	  <ProjectReference Include="..\src\corePackages\Core.Persistence\Core.Persistence.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Features\ProgramingLanguageTechnologies\Commands\" />
+	  <Folder Include="Features\ProgramingLanguageTechnologies\Models\" />
+	  <Folder Include="Features\ProgramingLanguageTechnologies\Rules\" />
+	  <Folder Include="Features\ProgramingLanguageTechnologies\Queries\" />
 	</ItemGroup>
 </Project>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Application.Features.ProgramingLanguageTechnologies.Dtos;
+using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +12,6 @@ namespace Application.Features.ProgramingLanguages.Dtos
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public ICollection<ProgramingLanguageTechnologyIncludeDto> Technologies { get; set; }
     }
 }

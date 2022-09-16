@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    [Table("ProgramingLanguages")]
     public class ProgramingLanguage: Entity
     {
         public string Name { get; set; }
+        public virtual ICollection<ProgramingLanguageTechnology> ProgramingLanguageTechnologies { get; set; }
 
         public ProgramingLanguage()
         {
 
         }
 
-        public ProgramingLanguage(int id, string name)
+        public ProgramingLanguage(int id, string name):this()
         {
             this.Id = id;
             this.Name = name;

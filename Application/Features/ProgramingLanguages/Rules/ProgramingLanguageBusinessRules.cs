@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Core.CrossCuttingConcerns.Exceptions;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,11 @@ namespace Application.Features.ProgramingLanguages.Rules
             {
                 throw new Exception("Programlama dili bulunamadı.");
             }
+        }
+
+        public void ProgramingLanguageShouldExistWhenRequested(ProgramingLanguage programingLanguage)
+        {
+            if (programingLanguage == null) throw new BusinessException("Requested brand does not exist");
         }
 
     }
