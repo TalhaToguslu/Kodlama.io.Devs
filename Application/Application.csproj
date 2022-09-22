@@ -23,5 +23,9 @@
 	  <Folder Include="Features\ProgramingLanguageTechnologies\Models\" />
 	  <Folder Include="Features\ProgramingLanguageTechnologies\Rules\" />
 	  <Folder Include="Features\ProgramingLanguageTechnologies\Queries\" />
+	  <Folder Include="Features\Users\Dtos\" />
+	  <Folder Include="Features\Users\Models\" />
+	  <Folder Include="Features\Users\Queries\" />
+	  <Folder Include="Features\Users\Profiles\" />
 	</ItemGroup>
 </Project>
